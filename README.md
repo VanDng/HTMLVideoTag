@@ -2,8 +2,8 @@
 
 I was looking for a solution to rotate a video without its controls.
 
-The only useful resource was the [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos).
-Well, it does not work as I expected though.
+The only useful resource was [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos).
+However, it still does not work as I expected though.
 
 # Todo
 
