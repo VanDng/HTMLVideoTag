@@ -2,13 +2,35 @@ window.onload = function() {
 
 	VVideoInitialization();
 
-	async function VVideoInitialization()
+	let ignoredVideo = document.getElementById('ignored-video')
+	VVideoInitialization(ignoredVideo);
+	
+	async function VVideoInitialization(videoElement)
 	{
-		var vVideos = Array.from(document.querySelectorAll('div.v-video-container'));
+		var vVideos = [];
+		
+		let ignoranceCheck = true;
+
+		if (videoElement != null && videoElement != 'undefined' && videoElement instanceof Element)
+		{
+		    vVideos = [ videoElement ];
+			ignoranceCheck = false;
+		}
+		else
+		{
+		    vVideos = Array.from(document.querySelectorAll('div.v-video-container:not([v-ignore])'));
+		}
+
+		console.log('v-video-count ' + vVideos.length);
+
 		await Promise.all(vVideos.map(async (videoContainer) => {
-			if (videoContainer.hasAttribute('v-ignore'))
+			if (videoContainer.hasAttribute('v-ignore') && ignoranceCheck == true)
 			{
 				return;
+			}
+			else
+			{
+				videoContainer.setAttribute('v-ignore', '');
 			}
 
 			//
