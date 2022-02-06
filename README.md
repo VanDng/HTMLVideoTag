@@ -7,7 +7,7 @@ Well, it did not have what I wanted but gave me a clue of making a custom video 
 
 # What I've done
 
-- [X] Video content is rotable with a fixed size container.
+- [X] Video content is rotable with a fixed height size container.
 - [X] Video controls are not rotated along with the video content.
 - [X] Video controls are responsive.
 - [X] Enable to loop videos.
@@ -15,6 +15,10 @@ Well, it did not have what I wanted but gave me a clue of making a custom video 
 # Compatibility
 
 - [X] Google Chrome
+
+# Todo
+
+- [ ] Support fixed width size container
 
 # Demo
 
