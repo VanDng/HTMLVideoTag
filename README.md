@@ -18,7 +18,8 @@ Well, it did not have what I wanted but gave me a clue of making a custom video 
 
 # Todo
 
-- [ ] Support fixed width size container
+- [ ] Support fixed width size container.
+- [ ] Improve CSS for a higher stability.
 
 # Demo
 
