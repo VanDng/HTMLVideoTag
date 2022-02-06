@@ -1,9 +1,11 @@
 # RotableVideoControl
 
-I was looking for a solution to rotate a video without rotating its controls.
+I was looking for a solution to rotate a video without rotating its controls and ended up with nothing.
 
 The only useful resource was [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos).
-Well, it did not have what I wanted but gave me a clue of making a custom video control.
+Well, it did not have what I wanted but gave me a clue about making a custom video control.
+
+So I have created one that fits my needs.
 
 # What I've done
 
@@ -14,10 +16,11 @@ Well, it did not have what I wanted but gave me a clue of making a custom video 
 
 # Compatibility
 
-- [X] Google Chrome
+- [X] Google Chrome on PC.
 
 # Todo
 
+- [ ] Any setting change on a video will affect all videos on the same page.
 - [ ] Support fixed width size container.
 - [ ] Improve CSS for a higher stability.
 
