@@ -4,7 +4,7 @@ window.onload = function() {
 
 	let ignoredVideo = document.getElementById('ignored-video')
 	VVideoInitialization(ignoredVideo);
-	
+
 	async function VVideoInitialization(videoElement)
 	{
 		var vVideos = [];
@@ -224,162 +224,188 @@ window.onload = function() {
 			var video = videoContainer.querySelector('video#v-video');
 			video.setAttribute('src', videoProperties.source);
 
-			if (videoProperties.height)
-			{
-				video.style.setProperty('height', videoProperties.height);
-			}
+			video.addEventListener('loadedmetadata', function() {
 
-			//
-			// Register events for video controls
-			//
-
-			// Video
-			video.onplaying = function() {
-				playButton.innerHTML = "&#10074;&#10074;";
-			};
-			video.onpause = function() {
-				playButton.innerHTML = "&#9658;";
-			};
-			video.addEventListener("timeupdate", function() {
-				var value = (100 / video.duration) * video.currentTime;
-				seekBar.value = value;
+				// Automatic resize requires meta data loaded.
+				videoSetup();
 			});
 
-			// Rotator
-			var videoDimensionReverse = false;
+			let videoSetup = function()
+			{
 
-			var rotator = videoContainer.querySelector('#v-rotator');
-			rotator.addEventListener('click', function() {
-				if (video.style.hasOwnProperty('transform'))
+				if (videoProperties.height)
 				{
-					let nextDegree = '';
-					let currentDegree = video.style.getPropertyValue('transform');
-				
-					switch(currentDegree)
-					{
-						case '':
-						case 'rotate(0deg)':
-							nextDegree = 'rotate(90deg)';
-							videoDimensionReverse = true;
-							break;
-						case 'rotate(90deg)':
-							nextDegree = 'rotate(180deg)';
-							videoDimensionReverse = false;
-							break;
-						case 'rotate(180deg)':
-							nextDegree = 'rotate(270deg)';
-							videoDimensionReverse = true;
-							break;
-						case 'rotate(270deg)':
-							nextDegree = 'rotate(0deg)';
-							videoDimensionReverse = false;
-							break;
-					}
-					video.style.setProperty('transform', nextDegree);
-				}
-				else
-				{
-					video.style.setProperty('transform', 'rotate(90deg)');
-					videoDimensionReverse = true;
-				}
-				
-				if (videoDimensionReverse)
-				{
-					videoContainer.style.setProperty('width', video.offsetWidth + 'px');
-					video.style.setProperty('width', videoProperties.height);
-				}
-				else
-				{
-					videoContainer.style.removeProperty('width');
-					video.style.removeProperty('width');
 					video.style.setProperty('height', videoProperties.height);
 				}
-			});
 
-			// Play
-			var playButton = videoContainer.querySelector("#v-play-pause");
-			playButton.addEventListener("click", function() {
-				if (video.paused == true) {
-					video.play();
+				if (video.offsetHeight > video.offsetWidth)
+				{
+					videoContainer.style.setProperty('width', video.offsetHeight + 'px');
+					videoContainer.setAttribute('fixed-width', '');
+				}
+
+				//
+				// Register events for video controls
+				//
+
+				// Video
+				video.onplaying = function() {
 					playButton.innerHTML = "&#10074;&#10074;";
-				} else {
-					video.pause();
+				};
+				video.onpause = function() {
 					playButton.innerHTML = "&#9658;";
-				}
-			});
+				};
+				video.addEventListener("timeupdate", function() {
+					var value = (100 / video.duration) * video.currentTime;
+					seekBar.value = value;
+				});
 
-			// Video progress
-			var seekBar = videoContainer.querySelector("#v-seek-bar");
-			seekBar.addEventListener("change", function() {
-				var time = video.duration * (seekBar.value / 100);
-				video.currentTime = time;
-			});
-			seekBar.addEventListener("mousedown", function() {
-				video.pause();
-			});
-			seekBar.addEventListener("mouseup", function() {
-				video.play();
-			});
-			
-			// Mute
-			var muteButton = videoContainer.querySelector("#v-mute");
-			muteButton.addEventListener("click", function() {
-				if (video.muted == false) {
-					video.muted = true;
-					muteButton.innerHTML = "&#128264;";
-				} else {
-					video.muted = false;
-					muteButton.innerHTML = "&#128266;";
-				}
-			});
+				// Rotator
+				var videoDimensionReverse = false;
 
-			// Volum
-			var volumeBar = videoContainer.querySelector("#v-volume-bar");
-			volumeBar.addEventListener("change", function() {
-				video.volume = volumeBar.value;
-			});
+				var rotator = videoContainer.querySelector('#v-rotator');
+				rotator.addEventListener('click', function() {
+					if (video.style.hasOwnProperty('transform'))
+					{
+						let nextDegree = '';
+						let currentDegree = video.style.getPropertyValue('transform');
+					
+						switch(currentDegree)
+						{
+							case '':
+							case 'rotate(0deg)':
+								nextDegree = 'rotate(90deg)';
+								videoDimensionReverse = true;
+								break;
+							case 'rotate(90deg)':
+								nextDegree = 'rotate(180deg)';
+								videoDimensionReverse = false;
+								break;
+							case 'rotate(180deg)':
+								nextDegree = 'rotate(270deg)';
+								videoDimensionReverse = true;
+								break;
+							case 'rotate(270deg)':
+								nextDegree = 'rotate(0deg)';
+								videoDimensionReverse = false;
+								break;
+						}
+						video.style.setProperty('transform', nextDegree);
+					}
+					else
+					{
+						video.style.setProperty('transform', 'rotate(90deg)');
+						videoDimensionReverse = true;
+					}
 
-			// Full screen
-			var fullScreenButton = videoContainer.querySelector("#v-full-screen");
-			fullScreenButton.addEventListener("click", function() {
-				if (video.requestFullscreen) {
-					video.requestFullscreen();
-				} else if (video.mozRequestFullScreen) {
-					video.mozRequestFullScreen(); // Firefox
-				} else if (video.webkitRequestFullscreen) {
-					video.webkitRequestFullscreen(); // Chrome and Safari
-				}
-			});
+					if (videoContainer.hasAttribute('fixed-width') == false)
+					{
+						if (videoDimensionReverse)
+						{
+							videoContainer.style.setProperty('width', video.offsetWidth + 'px');
+						}
+						else
+						{
+							videoContainer.style.removeProperty('width');
+						}
+					}
 
-			// Loop
-			var loopButton = videoContainer.querySelector("#v-loop");
-			loopButton.addEventListener("click", function() {
-				if (video.hasAttribute('loop'))
-				{
-					video.removeAttribute('loop');
-					loopButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
-				}
-				else
-				{
-					video.setAttribute('loop', '');
-					loopButton.style.setProperty('background', 'rgba(0,0,0,1)');
-				}
-			});
+					if (videoDimensionReverse)
+					{
+						video.style.setProperty('width', videoProperties.height);
+					}
+					else
+					{
+						video.style.removeProperty('width');
+						video.style.setProperty('height', videoProperties.height);
+					}
+				});
 
-			// Auto play
-			// var autoplayButton = videoContainer.querySelector("#v-autoplay");
-			// autoplayButton.addEventListener("click", function() {
-			// 	if (video.hasAttribute('autoplay'))
-			// 	{
-			// 		video.removeAttribute('autoplay');
-			// 		autoplayButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
-			// 	}
-			// 	else
-			// 	{
-			// 		video.setAttribute('autoplay', '');
-			// 		autoplayButton.style.setProperty('background', 'rgba(0,0,0,1)');
-			// 	}
-			// });
+				// Play
+				var playButton = videoContainer.querySelector("#v-play-pause");
+				playButton.addEventListener("click", function() {
+					if (video.paused == true) {
+						video.play();
+						playButton.innerHTML = "&#10074;&#10074;";
+					} else {
+						video.pause();
+						playButton.innerHTML = "&#9658;";
+					}
+				});
+
+				// Video progress
+				var seekBar = videoContainer.querySelector("#v-seek-bar");
+				seekBar.addEventListener("change", function() {
+					var time = video.duration * (seekBar.value / 100);
+					video.currentTime = time;
+				});
+				seekBar.addEventListener("mousedown", function() {
+					video.pause();
+				});
+				seekBar.addEventListener("mouseup", function() {
+					video.play();
+				});
+				
+				// Mute
+				var muteButton = videoContainer.querySelector("#v-mute");
+				muteButton.addEventListener("click", function() {
+					if (video.muted == false) {
+						video.muted = true;
+						muteButton.innerHTML = "&#128264;";
+					} else {
+						video.muted = false;
+						muteButton.innerHTML = "&#128266;";
+					}
+				});
+
+				// Volum
+				var volumeBar = videoContainer.querySelector("#v-volume-bar");
+				volumeBar.addEventListener("change", function() {
+					video.volume = volumeBar.value;
+				});
+
+				// Full screen
+				var fullScreenButton = videoContainer.querySelector("#v-full-screen");
+				fullScreenButton.addEventListener("click", function() {
+					if (video.requestFullscreen) {
+						video.requestFullscreen();
+					} else if (video.mozRequestFullScreen) {
+						video.mozRequestFullScreen(); // Firefox
+					} else if (video.webkitRequestFullscreen) {
+						video.webkitRequestFullscreen(); // Chrome and Safari
+					}
+				});
+
+				// Loop
+				var loopButton = videoContainer.querySelector("#v-loop");
+				loopButton.addEventListener("click", function() {
+					if (video.hasAttribute('loop'))
+					{
+						video.removeAttribute('loop');
+						loopButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
+					}
+					else
+					{
+						video.setAttribute('loop', '');
+						loopButton.style.setProperty('background', 'rgba(0,0,0,1)');
+					}
+				});
+
+				// Auto play
+				// var autoplayButton = videoContainer.querySelector("#v-autoplay");
+				// autoplayButton.addEventListener("click", function() {
+				// 	if (video.hasAttribute('autoplay'))
+				// 	{
+				// 		video.removeAttribute('autoplay');
+				// 		autoplayButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
+				// 	}
+				// 	else
+				// 	{
+				// 		video.setAttribute('autoplay', '');
+				// 		autoplayButton.style.setProperty('background', 'rgba(0,0,0,1)');
+				// 	}
+				// });
+			}
 		}));
 	}
 }
