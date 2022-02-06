@@ -1,14 +1,21 @@
-# HTMLVideoTag
+# RotableVideoControl
 
-I was looking for a solution to rotate a video without its controls.
+I was looking for a solution to rotate a video without rotating its controls.
 
 The only useful resource was [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos).
-Well, it does not have what I want but gave me a clue of making a custom video tag.
+Well, it did not have what I wanted but gave me a clue of making a custom video control.
 
-# Todo
+# What I've done
 
-Improve the video content's rotation ability.
+- [X] Video content is rotable with a fixed size container.
+- [X] Video controls are not rotated along with the video content.
+- [X] Video controls are responsive.
+- [X] Enable to loop videos.
 
-# Inspired
+# Compatibility
 
-The project was forked from https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos
+- [X] Google Chrome
+
+# Demo
+
+![image](https://user-images.githubusercontent.com/20492454/152683269-0c63e67c-b36f-40a5-b53d-319b71138c9a.png)
