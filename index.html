@@ -2,21 +2,29 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<title>HTML5 Video Demo</title>
+    <meta charset="utf-8">
+    <title>HTML5 Video Demo</title>
 </head>
 
 <body>
-	<p>Blabla</p>
-	<div class="v-video-container" video-src="videos/mikethefrog.mp4" video-height="204px"></div>
+    <p>Blabla</p>
+    <video class="v-video-container" height="204px">
+		<source src="videos/mikethefrog.webm" type="video/webm">
+		<source src="videos/mikethefrog.ogv" type="video/ogv">
+		<source src="videos/mikethefrog.mp4" type="video/mp4">
+		<p>
+			Your browser doesn't support HTML5 video.
+			<a href="videos/mikethefrog.mp4">Download</a> the video instead.
+		</p>
+	</video>
 
-	<p>Blabla</p>
-	<div class="v-video-container" video-src="videos/mikethefrog.mp4" video-height="500px"></div>
+    <p>Blabla</p>
+    <video class="v-video-container" src="videos/mikethefrog.mp4" height="500px" loop muted></video>
 
-	<p>Blabla</p>
-	<div v-ignore id="ignored-video" class="v-video-container" video-src="videos/sample.mp4" video-height="300px"></div>
+    <p>Blabla</p>
+    <video v-ignore id="ignored-video" class="v-video-container" src="videos/mikethefrog.mp4" height="300px"></video>
 
-	<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
