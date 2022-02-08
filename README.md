@@ -1,11 +1,11 @@
-# RotableVideoControl
+# RotatableVideoControl
 
 I was looking for a solution to rotate a video without rotating its controls and ended up with nothing.
 
 The only useful resource was [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos).
 Well, it did not have what I wanted but gave me a clue about making a custom video control.
 
-So I have created one that fits my needs.
+So I have created one, which was based on [this](https://blog.teamtreehouse.com/building-custom-controls-for-html5-videos), fitting my needs.
 
 # Todo
 
