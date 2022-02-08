@@ -355,11 +355,13 @@ window.onload = function() {
                 var muteButton = videoContainer.querySelector(".v-mute");
                 muteButton.addEventListener("click", function() {
                     if (video.muted == false) {
-                        video.muted = true;
-                        muteButton.innerHTML = "&#128264;";
+                        //video.muted = true;
+                        //muteButton.innerHTML = "&#128264;";
+                        configAllVideos({ muted: true });
                     } else {
-                        video.muted = false;
-                        muteButton.innerHTML = "&#128266;";
+                        //video.muted = false;
+                        //muteButton.innerHTML = "&#128266;";
+                        configAllVideos({ muted: false });
                     }
                 });
 
@@ -385,11 +387,13 @@ window.onload = function() {
                 var loopButton = videoContainer.querySelector(".v-loop");
                 loopButton.addEventListener("click", function() {
                     if (video.hasAttribute('loop')) {
-                        video.removeAttribute('loop');
-                        loopButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
+                        //video.removeAttribute('loop');
+                        //loopButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
+                        configAllVideos({ loop: false });
                     } else {
-                        video.setAttribute('loop', '');
-                        loopButton.style.setProperty('background', 'rgba(0,0,0,1)');
+                        //video.setAttribute('loop', '');
+                        //loopButton.style.setProperty('background', 'rgba(0,0,0,1)');
+                        configAllVideos({ loop: true });
                     }
                 });
 
@@ -407,6 +411,34 @@ window.onload = function() {
                 // 		autoplayButton.style.setProperty('background', 'rgba(0,0,0,1)');
                 // 	}
                 // });
+            }
+
+            let configAllVideos = async function(configObj) {
+                let otherContainers = Array.from(document.querySelectorAll('div.v-video-container'));
+                await Promise.all(otherContainers.map(async(otherContainer) => {
+                    let video = otherContainer.querySelector('video.v-video');
+                    let muteButton = otherContainer.querySelector('.v-mute');
+                    let loopButton = otherContainer.querySelector('.v-loop');
+
+                    if (configObj.hasOwnProperty('muted')) {
+                        video.muted = configObj.muted;
+                        if (video.muted) {
+                            muteButton.innerHTML = "&#128264;";
+                        } else {
+                            muteButton.innerHTML = "&#128266;";
+                        }
+                    }
+
+                    if (configObj.hasOwnProperty('loop')) {
+                        if (configObj.loop) {
+                            video.setAttribute('loop', '');
+                            loopButton.style.setProperty('background', 'rgba(0,0,0,1)');
+                        } else {
+                            video.removeAttribute('loop');
+                            loopButton.style.setProperty('background', 'rgba(0,0,0,0.5)');
+                        }
+                    }
+                }));
             }
         }));
     }
