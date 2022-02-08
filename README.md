@@ -7,22 +7,20 @@ Well, it did not have what I wanted but gave me a clue about making a custom vid
 
 So I have created one that fits my needs.
 
-# What I've done
+# Todo
 
 - [X] Video content is rotable with a fixed height size container.
 - [X] Video controls are not rotated along with the video content.
 - [X] Video controls are responsive.
 - [X] Enable to loop videos.
+- [X] Any setting change on a video will affect all videos on the same page.
+- [ ] Support fixed width size container.
+- [ ] Improve CSS for a higher stability.
+
 
 # Compatibility
 
 - [X] Google Chrome on PC.
-
-# Todo
-
-- [ ] Any setting change on a video will affect all videos on the same page.
-- [ ] Support fixed width size container.
-- [ ] Improve CSS for a higher stability.
 
 # Demo
 
