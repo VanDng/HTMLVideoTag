@@ -4,6 +4,17 @@
 <head>
     <meta charset="utf-8">
     <title>HTML5 Video Demo</title>
+
+    <script src="script.js"></script>
+
+    <script>
+        window.onload = function() {
+            InitializeVideo();
+
+            let ignoredVideo = document.getElementById('ignored-video')
+            InitializeVideo(ignoredVideo);
+        }
+    </script>
 </head>
 
 <body>
@@ -23,8 +34,6 @@
 
     <p>Blabla</p>
     <video v-ignore id="ignored-video" class="v-video-container" src="videos/mikethefrog.mp4" height="300px"></video>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
