@@ -10,7 +10,7 @@ async function InitializeVideo(videoElement) {
         vVideos = Array.from(document.querySelectorAll('video.v-video-container:not([v-ignore])'));
     }
 
-    console.log('v-video-count ' + vVideos.length);
+    //console.log('v-video-count ' + vVideos.length);
 
     await Promise.all(vVideos.map(async(videoContainer) => {
         if (videoContainer.hasAttribute('v-ignore') && ignoranceCheck == true) {
@@ -79,7 +79,7 @@ async function InitializeVideo(videoElement) {
         let fullCss = `
         .v-video-container {
             position: relative;
-            background: #c2c2c2;
+            background: #fafafa;
             width: fit-content;
         }
         
@@ -238,7 +238,6 @@ async function InitializeVideo(videoElement) {
         }
 
         video.addEventListener('loadedmetadata', function() {
-
             // Automatic resize requires meta data loaded.
             videoSetup();
         });
